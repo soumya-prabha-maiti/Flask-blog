@@ -1,4 +1,4 @@
-from flask import Flask,render_template
+from flask import Flask,render_template,url_for
 
 app = Flask(__name__) 
 
@@ -7,11 +7,92 @@ blogPosts=[
         'author':'Me',
         'title':'Post 1',
         'content':'Hi !',
+        'date':'June 5,2020'
     },
     {
         'author':'Friend',
         'title':'New post',
         'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
+    },
+    {
+        'author':'Friend',
+        'title':'New post',
+        'content':'Hello',
+        'date':'May 18,2020'
     },
 ]
 
