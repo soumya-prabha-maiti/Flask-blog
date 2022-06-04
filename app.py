@@ -1,7 +1,8 @@
-from flask import Flask,render_template,url_for
+from flask import Flask, flash, redirect,render_template,url_for
+import appForms
 
 app = Flask(__name__) 
-
+app.config['SECRET_KEY']="532e9fcb0e8a603aaba6da044566f412"
 blogPosts=[
     {
         'author':'Me',
@@ -105,6 +106,18 @@ def home():
 def about(): 
     return render_template('about.html',newTitle='About')
 
+@app.route('/signup',methods=['POST','GET']) 
+def signup(): 
+    form=appForms.SignUpForm()
+    if form.validate_on_submit():
+        flash(f"Account created for {form.username.data}","success")
+        return redirect(url_for('home'))
+    return render_template('signup.html',newTitle='Sign Up',form=form)
+
+@app.route('/login') 
+def login(): 
+    form=appForms.LoginForm()
+    return render_template('login.html',newTitle='Log In',form=form)
 
 if __name__=="__main__": 
-    app.run(debug=True)
+    app.run(debug=True) 
