@@ -114,9 +114,15 @@ def signup():
         return redirect(url_for('home'))
     return render_template('signup.html',newTitle='Sign Up',form=form)
 
-@app.route('/login') 
+@app.route('/login',methods=['POST','GET']) 
 def login(): 
     form=appForms.LoginForm()
+    if form.validate_on_submit():
+        if form.email.data=='admin@blog.com' and form.password.data=="password":
+            flash(f"Logged in as {form.email.data}","success")
+            return redirect(url_for('home'))
+        else:
+            flash(f"Login unsuccessful, please check email and password","danger")
     return render_template('login.html',newTitle='Log In',form=form)
 
 if __name__=="__main__": 
