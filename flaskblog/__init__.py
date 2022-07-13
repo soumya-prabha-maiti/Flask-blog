@@ -11,5 +11,7 @@ app.config['SQLALCHEMY_DATABASE_URI']='sqlite:///site.db'#//// used for absolute
 db=SQLAlchemy(app)
 bcrypt=Bcrypt(app)
 login_manager=LoginManager(app)
+login_manager.login_view='login'#function name for login, this is called when we try to access a page restricted behind login
+login_manager.login_message_category='info'# bootstrap class for flash messages to be displyed when trying to access restricted pages 
 
 from flaskblog import routes
