@@ -14,7 +14,7 @@ class User(db.Model):
     # lazy = 
     posts=db.relationship('Post',backref='author',lazy=True)
 
-    def ___repr__(self):
+    def __repr__(self):
         return f"User('{self.username}','{self.email}','{self.password}')"
     
 class Post(db.Model):
