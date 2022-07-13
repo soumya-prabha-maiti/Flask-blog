@@ -2,6 +2,8 @@ from flask import flash, redirect,render_template,url_for
 from flaskblog import appForms
 from flaskblog import app, db, bcrypt
 from flaskblog.models import User,Post
+from flask_login import login_user, current_user
+
 blogPosts=[
     {
         'author':'Me',
@@ -107,6 +109,8 @@ def about():
 
 @app.route('/signup',methods=['POST','GET']) 
 def signup(): 
+    if current_user.is_authenticated:
+        return redirect(url_for('home')) 
     form=appForms.SignUpForm()
     if form.validate_on_submit():
         hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -119,11 +123,16 @@ def signup():
 
 @app.route('/login',methods=['POST','GET']) 
 def login(): 
+    if current_user.is_authenticated:
+        return redirect(url_for('home')) 
     form=appForms.LoginForm()
     if form.validate_on_submit():
-        if form.email.data=='admin@blog.com' and form.password.data=="password":
-            flash(f"Logged in as {form.email.data}","success")
-            return redirect(url_for('home'))
+        user=User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password,form.password.data):
+            login_user(user,remember=form.remember.data)
+            return redirect(url_for('home')) 
         else:
             flash(f"Login unsuccessful, please check email and password","danger")
     return render_template('login.html',newTitle='Log In',form=form)
+
+    
