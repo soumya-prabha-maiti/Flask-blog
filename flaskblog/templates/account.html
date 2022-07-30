@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="content-section">
-        <form action="" method="POST">
+        <form action="" method="POST" enctype="multipart/form-data">
             {{ form.hidden_tag() }}<!--adds CSRF token, protects against attacks-->
             <fieldset class="form-group">
                 <!--The <fieldset> tag is used to group related elements in a form. The <fieldset> tag draws a box around the related elements.-->
@@ -44,6 +44,16 @@
                         </div>
                     {% else %}
                         {{ form.email(class="form-control form-control-lg")}}
+                    {% endif %}
+                </div>
+                <!-- Update Profile picture -->
+                <div class="form-group">
+                    {{ form.profile_pic.label()}}
+                    {{ form.profile_pic(class="form-control-file")}}
+                    {% if form.profile_pic.errors %}
+                        {% for error in form.profile_pic.errors %}
+                            <span class="text-danger">{{ error }}</span>
+                        {% endfor %}
                     {% endif %}
                 </div>
             </fieldset>

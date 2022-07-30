@@ -1,3 +1,5 @@
+import os
+import secrets
 from flask import flash, redirect,render_template,url_for, request
 from flaskblog import appForms
 from flaskblog import app, db, bcrypt
@@ -141,6 +143,14 @@ def logout():
     logout_user()
     return redirect(url_for('home')) 
 
+def save_profile_pic(form_profile_pic):
+    random_hex=secrets.token_hex(8)
+    _,f_ext=os.path.splitext(form_profile_pic.filename)
+    profile_pic_filename=random_hex+f_ext
+    picture_path=os.path.join(app.root_path,'static/profile_pictures',profile_pic_filename)
+    form_profile_pic.save(picture_path)
+    return profile_pic_filename
+
 @app.route('/account',methods=['POST','GET'])
 @login_required
 def account():
@@ -148,6 +158,9 @@ def account():
     if form.validate_on_submit():
         current_user.username=form.username.data
         current_user.email=form.email.data
+        if form.profile_pic.data:
+            profile_pic_filename=save_profile_pic(form.profile_pic.data)
+            current_user.profilePic=profile_pic_filename
         db.session.commit()
         flash('Your account has been updated!','success')
         return redirect(url_for('account'))#redirect to avoid "Confirm form resubmission"
