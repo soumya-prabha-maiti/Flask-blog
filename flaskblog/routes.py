@@ -1,5 +1,6 @@
 import os
 import secrets
+from PIL import Image
 from flask import flash, redirect,render_template,url_for, request
 from flaskblog import appForms
 from flaskblog import app, db, bcrypt
@@ -148,7 +149,11 @@ def save_profile_pic(form_profile_pic):
     _,f_ext=os.path.splitext(form_profile_pic.filename)
     profile_pic_filename=random_hex+f_ext
     picture_path=os.path.join(app.root_path,'static/profile_pictures',profile_pic_filename)
-    form_profile_pic.save(picture_path)
+    
+    output_size=(256,256)
+    i=Image.open(form_profile_pic)
+    i.thumbnail(output_size)
+    i.save(picture_path)
     return profile_pic_filename
 
 @app.route('/account',methods=['POST','GET'])
