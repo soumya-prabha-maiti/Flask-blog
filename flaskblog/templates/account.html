@@ -1,4 +1,54 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>{{current_user.username}}</h1>
+    <h1>{{logout_user}}</h1>
+    <div class="content-section">
+        <div class="media">
+            <img src={{profile_pic}} alt="Profile picture of {{current_user.username}}" class="rounded-circle account-img">
+            <div class="media-body">
+                <h2 class="account-heading">{{current_user.username}}</h2>
+                <p class="text-secondary">{{current_user.email}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="content-section">
+        <form action="" method="POST">
+            {{ form.hidden_tag() }}<!--adds CSRF token, protects against attacks-->
+            <fieldset class="form-group">
+                <!--The <fieldset> tag is used to group related elements in a form. The <fieldset> tag draws a box around the related elements.-->
+                <legend class="border-bottom mb-4">
+                    Edit profile
+                </legend>
+                <!--Username-->
+                <div class="form-group">
+                    {{ form.username.label(class="form-control-label")}}
+                    <!--If the form has errors-->
+                    {% if form.username.errors %}
+                        {{ form.username(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            <!--List all errors-->
+                            {% for error in form.username.errors %}<span>{{ error }}</span>{% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.username(class="form-control form-control-lg")}}
+                    {% endif %}
+                </div>
+                <!--Email-->
+                <div class="form-group">
+                    {{ form.email.label(class="form-control-label")}}
+                    <!--If the form has errors-->
+                    {% if form.email.errors %}
+                        {{ form.email(class="form-control form-control-lg is-invalid")}}
+                        <div class="invalid-feedback">
+                            <!--List all errors-->
+                            {% for error in form.email.errors %}<span>{{ error }}</span>{% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.email(class="form-control form-control-lg")}}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <!--Submit button-->
+            <div class="form-group">{{ form.submit(class="btn btn-outline-info")}}</div>
+        </form>
+    </div>
 {% endblock content %}

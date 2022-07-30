@@ -141,7 +141,19 @@ def logout():
     logout_user()
     return redirect(url_for('home')) 
 
-@app.route('/account')
+@app.route('/account',methods=['POST','GET'])
 @login_required
 def account():
-    return render_template('account.html',newTitle='Account')
+    form=appForms.UpdateAccountForm()
+    if form.validate_on_submit():
+        current_user.username=form.username.data
+        current_user.email=form.email.data
+        db.session.commit()
+        flash('Your account has been updated!','success')
+        return redirect(url_for('account'))#redirect to avoid "Confirm form resubmission"
+    elif request.method=='GET':
+        # Display the current details already filled up in the form
+        form.username.data=current_user.username
+        form.email.data=current_user.email
+    profile_pic=url_for('static',filename=f'profile_pictures/{current_user.profilePic}')
+    return render_template('account.html',newTitle='Account',profile_pic=profile_pic,form=form)
