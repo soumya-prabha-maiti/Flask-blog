@@ -54,7 +54,7 @@ class UpdateAccountForm(FlaskForm):
                 raise ValidationError('Email is already taken. Please choose a different one')
 
 
-class NewPostForm(FlaskForm):
+class BlogpostForm(FlaskForm):
     title = StringField('Title',validators=[DataRequired()])
     content=TextAreaField('Content')
     submit=SubmitField(label="Post")
