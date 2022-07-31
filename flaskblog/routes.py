@@ -104,7 +104,8 @@ blogPosts=[
 @app.route('/') 
 @app.route('/home')
 def home(): 
-    return render_template('home.html',posts=blogPosts)
+    posts=Post.query.all()
+    return render_template('home.html',posts=posts)
 
 @app.route('/about') 
 def about(): 
@@ -175,3 +176,21 @@ def account():
         form.email.data=current_user.email
     profile_pic=url_for('static',filename=f'profile_pictures/{current_user.profilePic}')
     return render_template('account.html',newTitle='Account',profile_pic=profile_pic,form=form)
+
+@app.route('/post/new',methods=['POST','GET'])
+@login_required
+def create_post():
+    form=appForms.NewPostForm()
+    if form.validate_on_submit():
+        new_post=Post(title=form.title.data,content=form.content.data,author=current_user)
+        db.session.add(new_post)
+        db.session.commit()
+        flash('Your post has been created','success')
+        return redirect(url_for('home')) 
+    return render_template('create_post.html',newTitle='Create Post',form=form)
+
+@app.route('/post/<int:post_id>')
+def post(post_id):
+    post=Post.query.get_or_404(post_id)
+    return render_template('post.html',newTitle=post.title,post=post)
+
