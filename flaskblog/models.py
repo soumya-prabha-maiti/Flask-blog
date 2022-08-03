@@ -1,5 +1,6 @@
-from datetime import datetime
-from flaskblog import db, login_manager
+from datetime import datetime,timedelta,timezone
+import jwt
+from flaskblog import db, login_manager,app
 from flask_login import UserMixin
 
 @login_manager.user_loader
@@ -19,6 +20,33 @@ class User(db.Model,UserMixin):
     # lazy = 
     posts=db.relationship('Post',backref='author',lazy=True)
 
+    def create_pw_reset_token(self,expires_sec=120):
+        reset_token = jwt.encode(
+                {
+                    "user_id": self.id,
+                    "exp": datetime.now(tz=timezone.utc)
+                        + timedelta(seconds=expires_sec)
+
+                },
+                app.config['SECRET_KEY'],
+                algorithm="HS256"
+            )
+        return reset_token
+
+    @staticmethod
+    def verify_pw_reset_token(token):
+        try:
+            data = jwt.decode(
+                token,
+                app.config['SECRET_KEY'],
+                leeway=timedelta(seconds=10),
+                algorithms=["HS256"]
+            )
+            user_id=data['user_id']
+        except:
+            return None
+        return User.query.get(user_id)
+            
     def __repr__(self):
         return f"User('{self.username}','{self.email}','{self.password}')"
     
@@ -31,8 +59,8 @@ class Post(db.Model):
     # The argument of ForeignKey is small letter user since it represents the table user
     # For every class, the corresponding table is small lettered by default
 
-    def ___repr__(self):
-        return f"User('{self.title}','{self.datePosted}')"
+    def __repr__(self):
+        return f"Post('{self.title}','{self.datePosted}')"
 
     
 

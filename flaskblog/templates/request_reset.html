@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-    <h1>Log In</h1>
     <div class="content-section">
         <form action="" method="POST">
             {{ form.hidden_tag() }}<!--adds CSRF token, protects against attacks-->
             <fieldset class="form-group">
                 <!--The <fieldset> tag is used to group related elements in a form. The <fieldset> tag draws a box around the related elements.-->
                 <legend class="border-bottom mb-4">
-                    Welcome Back!
+                    Request Password Reset
                 </legend>
                 <!--Email-->
                 <div class="form-group">
@@ -23,36 +22,10 @@
                         {{ form.email(class="form-control form-control-lg")}}
                     {% endif %}
                 </div>
-                <!--Password-->
-                <div class="form-group">
-                    {{ form.password.label(class="form-control-label")}}
-                    <!--If the form has errors-->
-                    {% if form.password.errors %}
-                        {{ form.password(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            <!--List all errors-->
-                            {% for error in form.password.errors %}<span>{{ error }}</span>{% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.password(class="form-control form-control-lg")}}
-                    {% endif %}
-                </div>
-                <!--Remember me-->
-                <div class="form-check">
-                    {{ form.remember(class="form-check-input")}}
-                    {{ form.remember.label(class="form-check-label")}}
-                </div>
             </fieldset>
             <!--Submit button-->
             <div class="form-group">{{ form.submit(class="btn btn-outline-info")}}</div>
-            <small class="text-muted ml-2">
-                <a href="{{url_for('request_reset')}}">Forgot Password?</a>
-            </small>
         </form>
     </div>
-    <div class="border-top pt-3">
-        <small class="text-muted">
-            Don't have an account? <a href="{{ url_for('signup')}}"class="ml-2">Sign Up</a>
-        </small>
-    </div>
+    
 {% endblock content %}
