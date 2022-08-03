@@ -4,7 +4,7 @@ import secrets
 from PIL import Image
 from flask import flash, redirect,render_template,url_for, request,abort
 from flask_mail import Message
-from flaskblog import appForms
+from flaskblog.forms import SignUpForm,LoginForm,UpdateAccountForm,BlogpostForm,RequestResetForm,ResetPasswordForm
 from flaskblog import app, db, bcrypt, mail
 from flaskblog.models import User,Post
 from flask_login import login_user, current_user, logout_user,login_required
@@ -25,7 +25,7 @@ def about():
 def signup(): 
     if current_user.is_authenticated:
         return redirect(url_for('home')) 
-    form=appForms.SignUpForm()
+    form=SignUpForm()
     if form.validate_on_submit():
         hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user1= User(username=form.username.data,email=form.email.data,password=hashed_password)
@@ -39,7 +39,7 @@ def signup():
 def login(): 
     if current_user.is_authenticated:
         return redirect(url_for('home')) 
-    form=appForms.LoginForm()
+    form=LoginForm()
     if form.validate_on_submit():
         user=User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password,form.password.data):
@@ -70,7 +70,7 @@ def save_profile_pic(form_profile_pic):
 @app.route('/account',methods=['POST','GET'])
 @login_required
 def account():
-    form=appForms.UpdateAccountForm()
+    form=UpdateAccountForm()
     if form.validate_on_submit():
         current_user.username=form.username.data
         current_user.email=form.email.data
@@ -90,7 +90,7 @@ def account():
 @app.route('/post/new',methods=['POST','GET'])
 @login_required
 def create_post():
-    form=appForms.BlogpostForm()
+    form=BlogpostForm()
     if form.validate_on_submit():
         new_post=Post(title=form.title.data,content=form.content.data,author=current_user)
         db.session.add(new_post)
@@ -110,7 +110,7 @@ def update_post(post_id):
     post=Post.query.get_or_404(post_id)
     if post.author!=current_user:
         abort(403)
-    form=appForms.BlogpostForm()
+    form=BlogpostForm()
 
     if form.validate_on_submit():
         post.title=form.title.data
@@ -160,7 +160,7 @@ def request_reset():
     if current_user.is_authenticated:
         # TODO : logout user instead of redirect to home
         return redirect(url_for('home'))
-    form=appForms.RequestResetForm()
+    form=RequestResetForm()
     if form.validate_on_submit():
         user=User.query.filter_by(email=form.email.data).first()
         send_reset_email(user)
@@ -177,7 +177,7 @@ def reset_password(token):
     if user is None:
         flash('Invalid or expired token','warning')
         return redirect(url_for('request_reset'))
-    form=appForms.ResetPasswordForm()
+    form=ResetPasswordForm()
     if form.validate_on_submit():
         hashed_password=bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         user.password=hashed_password
