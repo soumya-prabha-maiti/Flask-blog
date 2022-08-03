@@ -1,6 +1,6 @@
 from flask import Blueprint, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
-from flaskblog import app, bcrypt, db
+from flaskblog import bcrypt, db
 from flaskblog.models import Post, User
 from flaskblog.users.forms import (LoginForm, RequestResetForm,
                                    ResetPasswordForm, SignUpForm,
@@ -108,7 +108,7 @@ def request_reset():
     )
 
 
-@app.route("/reset_password/<token>", methods=["GET", "POST"])
+@users.route("/reset_password/<token>", methods=["GET", "POST"])
 def reset_password(token):
     if current_user.is_authenticated:
         # TODO : logout user instead of redirect to home
