@@ -130,3 +130,10 @@ dmypy.json
 
 # Database
 *.db
+
+# Images
+*.png
+*.jpg
+
+# Editor settings 
+.vscode/
