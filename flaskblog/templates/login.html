@@ -46,13 +46,13 @@
             <!--Submit button-->
             <div class="form-group">{{ form.submit(class="btn btn-outline-info")}}</div>
             <small class="text-muted ml-2">
-                <a href="{{url_for('request_reset')}}">Forgot Password?</a>
+                <a href="{{url_for('users.request_reset')}}">Forgot Password?</a>
             </small>
         </form>
     </div>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Don't have an account? <a href="{{ url_for('signup')}}"class="ml-2">Sign Up</a>
+            Don't have an account? <a href="{{ url_for('users.signup')}}"class="ml-2">Sign Up</a>
         </small>
     </div>
 {% endblock content %}
