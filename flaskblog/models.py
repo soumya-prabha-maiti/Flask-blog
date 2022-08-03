@@ -1,6 +1,7 @@
 from datetime import datetime,timedelta,timezone
 import jwt
-from flaskblog import db, login_manager,app
+from flask import current_app
+from flaskblog import db, login_manager
 from flask_login import UserMixin
 
 @login_manager.user_loader
@@ -28,7 +29,7 @@ class User(db.Model,UserMixin):
                         + timedelta(seconds=expires_sec)
 
                 },
-                app.config['SECRET_KEY'],
+                current_app.config['SECRET_KEY'],
                 algorithm="HS256"
             )
         return reset_token
@@ -38,7 +39,7 @@ class User(db.Model,UserMixin):
         try:
             data = jwt.decode(
                 token,
-                app.config['SECRET_KEY'],
+                current_app.config['SECRET_KEY'],
                 leeway=timedelta(seconds=10),
                 algorithms=["HS256"]
             )
