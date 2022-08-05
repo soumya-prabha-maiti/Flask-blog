@@ -13,7 +13,7 @@ class User(db.Model,UserMixin):
     username=db.Column(db.String(50),unique=True,nullable=False)
     email=db.Column(db.String(128),unique=True,nullable=False)
     # The profile pic may not be unique eg the default starting picture 
-    profilePic=db.Column(db.String(20),nullable=False,default="default.jpg")
+    profile_pic=db.Column(db.String(20),nullable=False,default="default.jpg")
     password=db.Column(db.String(60),nullable=False)
 
     # A relationship is not a column , but actually it runs a query in the on the post table

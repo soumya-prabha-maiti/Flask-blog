@@ -61,7 +61,7 @@ def account():
         current_user.email = form.email.data
         if form.profile_pic.data:
             profile_pic_filename = save_profile_pic(form.profile_pic.data)
-            current_user.profilePic = profile_pic_filename
+            current_user.profile_pic = profile_pic_filename
         db.session.commit()
         flash("Your account has been updated!", "success")
         # redirect to avoid "Confirm form resubmission"
@@ -71,7 +71,7 @@ def account():
         form.username.data = current_user.username
         form.email.data = current_user.email
     profile_pic = url_for(
-        "static", filename=f"profile_pictures/{current_user.profilePic}"
+        "static", filename=f"profile_pictures/{current_user.profile_pic}"
     )
     return render_template(
         "account.html", newTitle="Account", profile_pic=profile_pic, form=form
