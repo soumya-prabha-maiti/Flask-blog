@@ -137,3 +137,6 @@ dmypy.json
 
 # Editor settings 
 .vscode/
+
+# Environment variables
+.bashrc
