@@ -84,7 +84,7 @@ def user_profile(username):
     user = User.query.filter_by(username=username).first_or_404()
     posts = (
         Post.query.filter_by(author=user)
-        .order_by(Post.datePosted.desc())
+        .order_by(Post.date_posted.desc())
         .paginate(page=page, per_page=5)
     )
     return render_template(
