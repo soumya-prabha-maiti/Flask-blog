@@ -56,7 +56,7 @@ class Post(db.Model):
     title=db.Column(db.String(100),nullable=False)
     date_posted=db.Column(db.DateTime,nullable=False,default=datetime.utcnow)
     content=db.Column(db.Text,nullable=False)
-    userId=db.Column(db.Integer, db.ForeignKey('user.id'),nullable=True)
+    user_id=db.Column(db.Integer, db.ForeignKey('user.id'),nullable=True)
     # The argument of ForeignKey is small letter user since it represents the table user
     # For every class, the corresponding table is small lettered by default
 
