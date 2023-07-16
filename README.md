@@ -1,15 +1,39 @@
 # Flask-blog
-## Installation steps
-1. Clone the repository
-1. Go into the cloned directory
-1. Run `setup.sh`
-1. Enter the details in the json file that will open, and then save and exit
-1. Activate virtual environment
+<h2>Table of Contents</h2>
+  <ul> 
+   <li><a href="#Installation">Installation</a></li>                    
+  </ul>
+<h2 id="Installation">Installation</h2>
+
+
+- Clone this repository
+    ```
+    git clone https://github.com/soumya-prabha-maiti/Flask-blog.git
+    ```
+- Go into the repository 
+    ```
+    cd Flask-blog
+    ```
+- Run `setup.sh` to perform initial setup
+    ```Y
+    bash setup.sh
+    ```
+- A json file will open. Type in the configuration values.
+    ```json
+    {
+        "SECRET_KEY":"type secret key here",
+        "SQLALCHEMY_DATABASE_URI":"type database URI here",
+        "EMAIL_USERNAME":"type email id here",
+        "EMAIL_PASSWORD":"type email password here"
+    }
+    ```
+    After filling in the details, press `Ctrl+X` > `Y` > `Enter` 
+    
+- Activate the virtual environment 
     ```
     source venv/bin/activate
     ```
-1. Run the app
+- Run 
     ```
-    export FLASK_APP=run.py
     flask run --host=0.0.0.0
     ```
