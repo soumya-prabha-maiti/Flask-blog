@@ -141,3 +141,6 @@ dmypy.json
 
 # Environment variables
 .bashrc
+
+# Environment variables
+flask_blog_config.json

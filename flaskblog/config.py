@@ -1,7 +1,7 @@
 import os
 import json
 
-with open("/etc/flask_blog_config.json",) as config_file:
+with open("flask_blog_config.json",) as config_file:
     config=json.load(config_file)
 
 
