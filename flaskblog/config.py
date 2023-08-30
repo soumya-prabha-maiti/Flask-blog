@@ -1,15 +1,14 @@
 import os
-import json
+from dotenv import load_dotenv
 
-with open("flask_blog_config.json",) as config_file:
-    config=json.load(config_file)
+load_dotenv()
 
 
 class Config:
-    SECRET_KEY = config.get("SECRET_KEY")
-    SQLALCHEMY_DATABASE_URI = config.get("SQLALCHEMY_DATABASE_URI")  # //// used for absolute path; ///used for relative path with respect to the project folder
+    SECRET_KEY = os.getenv("SECRET_KEY")
+    SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")  # //// used for absolute path; ///used for relative path with respect to the project folder
     MAIL_SERVER = "smtp.gmail.com"
     MAIL_PORT = "587"
     MAIL_USE_TLS = True
-    MAIL_USERNAME = config.get("EMAIL_USERNAME")
-    MAIL_PASSWORD = config.get("EMAIL_PASSWORD")
+    MAIL_USERNAME = os.getenv("EMAIL_USERNAME")
+    MAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
