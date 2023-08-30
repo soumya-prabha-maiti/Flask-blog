@@ -1,3 +1,14 @@
+---
+title: Flask Blog
+emoji: 🔥
+colorFrom: yellow
+colorTo: green
+sdk: docker
+pinned: false
+license: mit
+app_port: 7680
+---
+
 # Flask-blog
 <h2>Table of Contents</h2>
   <ul> 
