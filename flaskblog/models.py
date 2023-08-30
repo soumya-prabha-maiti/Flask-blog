@@ -63,5 +63,14 @@ class Post(db.Model):
     def __repr__(self):
         return f"Post('{self.title}','{self.date_posted}')"
 
+    def to_dict(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "date_posted": self.date_posted,
+            "content": self.content,
+            "user_id": self.user_id
+        }
+
     
 
