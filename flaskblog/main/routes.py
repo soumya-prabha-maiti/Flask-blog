@@ -16,3 +16,18 @@ def home():
 @main.route("/about")
 def about():
     return render_template("about.html", newTitle="About")
+
+
+@main.route("/api/home")
+def api_home():
+    posts = Post.query.order_by(Post.date_posted.desc())
+    
+    return {"posts": [post.to_dict() for post in posts]}
+
+@main.route("/api/home/paginate/<int:page>")
+def api_home_paginate(page):
+    posts = Post.query.order_by(
+        Post.date_posted.desc()).paginate(page=page, per_page=5)
+    
+    return {"posts": [post.to_dict() for post in posts]}
+    
