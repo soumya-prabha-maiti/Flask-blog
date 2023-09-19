@@ -140,7 +140,4 @@ dmypy.json
 .vscode/
 
 # Environment variables
-.bashrc
-
-# Docker Compose
-docker-compose.yml       
+.bashrc   
