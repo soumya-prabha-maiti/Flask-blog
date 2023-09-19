@@ -131,11 +131,6 @@ dmypy.json
 # Database
 *.db
 
-# Images
-*.png
-*.jpg
-!flaskblog/static/profile_pictures/default.jpg
-
 # Editor settings 
 .vscode/
 

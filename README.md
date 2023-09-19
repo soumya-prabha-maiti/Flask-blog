@@ -10,13 +10,42 @@ app_port: 7680
 ---
 
 # Flask-blog
-<h2>Table of Contents</h2>
-  <ul> 
-   <li><a href="#Installation">Installation</a></li>                    
-  </ul>
-<h2 id="Installation">Installation</h2>
+<!-- TABLE OF CONTENTS -->
+<details open="open">
+  <summary>Table of Contents</summary>
+  <ol>
+    <li><a href="#about-the-project">About</a></li>
+    <li><a href="#technologies-used">Technologies Used</a>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#installing-locally">Installing locally</a></li>
+    <li><a href="#license">License</a></li>
+  </ol>
+</details>
 
 
+
+<!-- ABOUT THE PROJECT -->
+## About
+This is a simple blog application built using Flask. It has the following features:
+* User registration and login
+* User profile
+* Create, update and delete posts
+* Reset password using email
+* Pagination
+
+## Technologies Used
+This project is built with the following libraries and frameworks
+* [Flask](https://flask.palletsprojects.com/en/2.3.x/)
+* [Bootstrap](https://getbootstrap.com)
+* [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/)
+* [SQLite](https://www.sqlite.org/index.html)
+
+## Demo
+The deployed version of this project can be accessed [here](https://soumyaprabhamaiti-flask-blog.hf.space/home). Sample screenshots are shown below:
+![Home Page](readme_images/home.jpeg)
+
+## Installing locally
+- Install docker and docker-compose
 - Clone this repository
     ```
     git clone https://github.com/soumya-prabha-maiti/Flask-blog.git
@@ -25,26 +54,23 @@ app_port: 7680
     ```
     cd Flask-blog
     ```
-- Run `setup.sh` to perform initial setup
-    ```Y
-    bash setup.sh
+- Create a file named `.env` and type in the following key-value pairs. Keep the name of the keys exactly as shown below and enter your own values.
     ```
-- A json file will open. Type in the configuration values.
-    ```json
-    {
-        "SECRET_KEY":"type secret key here",
-        "SQLALCHEMY_DATABASE_URI":"type database URI here",
-        "EMAIL_USERNAME":"type email id here",
-        "EMAIL_PASSWORD":"type email password here"
-    }
+    SECRET_KEY=yoursecretkey
+    SQLALCHEMY_DATABASE_URI=sqlite_database_uri
+    EMAIL_USERNAME=your_email
+    EMAIL_PASSWORD=your_email_password
     ```
-    After filling in the details, press `Ctrl+X` > `Y` > `Enter` 
+    After filling in the details, save the file.
     
-- Activate the virtual environment 
+- Run the following command to start the server
     ```
-    source venv/bin/activate
+    docker-compose up
     ```
-- Run 
-    ```
-    flask run --host=0.0.0.0
-    ```
+
+- Open your browser and go to `http://localhost:7680/` to view the app.
+
+<!-- LICENSE -->
+## License
+
+Distributed under the MIT License. See `LICENSE` for more information.
