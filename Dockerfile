@@ -18,4 +18,4 @@ RUN mkdir -p /app/instance && chmod 777 /app/instance
 EXPOSE 7680
 
 # Start the gunicorn server to serve the app
-CMD ["gunicorn", "-b", "0.0.0.0:7680","run:app"]
+CMD ["gunicorn", "-w", "2", "-b", "0.0.0.0:7680","run:app"]
