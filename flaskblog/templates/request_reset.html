@@ -1,31 +1,24 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="content-section">
-        <form action="" method="POST">
-            {{ form.hidden_tag() }}<!--adds CSRF token, protects against attacks-->
-            <fieldset class="form-group">
-                <!--The <fieldset> tag is used to group related elements in a form. The <fieldset> tag draws a box around the related elements.-->
-                <legend class="border-bottom mb-4">
-                    Request Password Reset
-                </legend>
-                <!--Email-->
-                <div class="form-group">
-                    {{ form.email.label(class="form-control-label")}}
-                    <!--If the form has errors-->
-                    {% if form.email.errors %}
-                        {{ form.email(class="form-control form-control-lg is-invalid")}}
-                        <div class="invalid-feedback">
-                            <!--List all errors-->
-                            {% for error in form.email.errors %}<span>{{ error }}</span>{% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg")}}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <!--Submit button-->
-            <div class="form-group">{{ form.submit(class="btn btn-outline-info")}}</div>
-        </form>
-    </div>
-    
+<div class="page-header">
+    <h1>Reset Password</h1>
+    <p class="text-muted">Enter your email to receive a reset link</p>
+</div>
+<div class="card">
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.email.label(class="form-label") }}
+            {% if form.email.errors %}
+                {{ form.email(class="form-input is-invalid", placeholder="you@example.com") }}
+                <div class="invalid-feedback">{% for error in form.email.errors %}{{ error }}{% endfor %}</div>
+            {% else %}
+                {{ form.email(class="form-input", placeholder="you@example.com") }}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary w-full") }}
+        </div>
+    </form>
+</div>
 {% endblock content %}

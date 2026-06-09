@@ -1,33 +1,37 @@
 {% extends 'base.html' %}
+{% from 'macros.html' import avatar %}
 {% block content %}
-    <h1 class="mb-3">Posts by {{user.username}} </h1>
-    Total no of posts : {{posts.total}}
-    {% for post in  posts.items %}
-        <article class="media content-section">
-            <img src="{{url_for('static',filename='profile_pictures/'+post.author.profile_pic)}}" alt="" class="rounded-circle article-img">
-            <div class="media-body">
-                <div class="article-metadata">
-                    <a class="mr-2" href="{{url_for('users.user_profile',username=post.author.username)}}">{{ post.author.username }}</a>
-                    <small class="text-muted">{{ post.date_posted.strftime('%Y-%m-%d')}}</small>
-                </div>
-                <h2>
-                    <a class="article-title" href="{{url_for('posts.post',post_id=post.id)}}">{{ post.title }}</a>
-                </h2>
-                <p class="article-content">{{ post.content }}</p>
-            </div>
-        </article>
-    {% endfor %}
-    {% for page_num in posts.iter_pages(left_edge=1,right_edge=1,left_current=1,right_current=2) %}
+<div class="page-header">
+    <h1>{{ user.username }}</h1>
+    <p class="text-muted">{{ posts.total }} post{{ 's' if posts.total != 1 }}</p>
+</div>
+
+{% for post in posts.items %}
+<article class="card">
+    <div class="card-header">
+        {{ avatar(post.author, "avatar-sm") }}
+        <div class="card-meta">
+            <a href="{{ url_for('users.user_profile', username=post.author.username) }}">{{ post.author.username }}</a>
+            <span>&middot;</span>
+            <span>{{ post.date_posted.strftime('%b %d, %Y') }}</span>
+        </div>
+    </div>
+    <a href="{{ url_for('posts.post', post_id=post.id) }}" class="card-title">{{ post.title }}</a>
+    <p class="card-content mt-2">{{ post.content[:200] }}{% if post.content|length > 200 %}…{% endif %}</p>
+</article>
+{% endfor %}
+
+<div class="pagination">
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=2) %}
         {% if page_num %}
-            {% if posts.page==page_num %}
-                <a href="{{url_for('users.user_profile',username=user.username,page=page_num)}}"class="btn btn-info mb-4">{{page_num}}</a>            
+            {% if posts.page == page_num %}
+                <span class="active">{{ page_num }}</span>
             {% else %}
-                <a href="{{url_for('users.user_profile',username=user.username,page=page_num)}}"class="btn btn-outline-info mb-4">{{page_num}}</a>
+                <a href="{{ url_for('users.user_profile', username=user.username, page=page_num) }}">{{ page_num }}</a>
             {% endif %}
         {% else %}
-            ...
+            <span class="ellipsis">&hellip;</span>
         {% endif %}
     {% endfor %}
-    <br>
-    <a href="/about">About</a>
+</div>
 {% endblock content %}

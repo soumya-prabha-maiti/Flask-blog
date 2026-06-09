@@ -1,0 +1,7 @@
+{% macro avatar(user, size="") %}
+{% if user.profile_pic == 'default.jpg' %}
+<img src="{{ url_for('static', filename='profile_pictures/default.svg') }}" alt="{{ user.username }}" class="avatar {{ size }}">
+{% else %}
+<img src="{{ url_for('static', filename='profile_pictures/' + user.profile_pic) }}" alt="{{ user.username }}" class="avatar {{ size }}">
+{% endif %}
+{% endmacro %}
