@@ -17,16 +17,47 @@
         </div>
         <div class="form-group">
             {{ form.content.label(class="form-label") }}
-            {% if form.content.errors %}
-                {{ form.content(class="form-input is-invalid", placeholder="Write your post...") }}
-                <div class="invalid-feedback">{% for error in form.content.errors %}{{ error }}{% endfor %}</div>
-            {% else %}
-                {{ form.content(class="form-input", placeholder="Write your post...") }}
-            {% endif %}
+            <span class="text-muted" style="font-size:0.75rem;margin-left:0.5rem;">Markdown supported</span>
+            <div class="editor-split">
+                {% if form.content.errors %}
+                    {{ form.content(class="form-input is-invalid editor-textarea", placeholder="Write your post in markdown...", id="md-input") }}
+                    <div class="invalid-feedback">{% for error in form.content.errors %}{{ error }}{% endfor %}</div>
+                {% else %}
+                    {{ form.content(class="form-input editor-textarea", placeholder="Write your post in markdown...", id="md-input") }}
+                {% endif %}
+                <div class="editor-preview prose" id="md-preview"><span class="text-muted">Preview will appear here...</span></div>
+            </div>
         </div>
         <div class="form-group">
             {{ form.submit(class="btn btn-primary") }}
         </div>
     </form>
 </div>
+
+<style>
+.container{max-width:1100px}
+.editor-split{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:0.5rem}
+.editor-textarea{min-height:300px;resize:vertical;font-family:monospace;font-size:0.875rem}
+.editor-preview{min-height:300px;padding:0.75rem;border:1px solid hsl(var(--border));border-radius:var(--radius);overflow-y:auto;background:hsl(var(--bg))}
+.prose h1,.prose h2,.prose h3{margin:1rem 0 0.5rem;font-weight:600}
+.prose h1{font-size:1.5rem}.prose h2{font-size:1.25rem}.prose h3{font-size:1.1rem}
+.prose p{margin:0.5rem 0}.prose ul,.prose ol{padding-left:1.5rem;margin:0.5rem 0}
+.prose code{background:hsl(var(--muted));padding:0.15rem 0.3rem;border-radius:3px;font-size:0.85em}
+.prose pre{background:hsl(var(--muted));padding:0.75rem;border-radius:var(--radius);overflow-x:auto;margin:0.5rem 0}
+.prose pre code{background:none;padding:0}
+.prose blockquote{border-left:3px solid hsl(var(--border));padding-left:1rem;margin:0.5rem 0;color:hsl(var(--muted-foreground))}
+.prose table{border-collapse:collapse;width:100%;margin:0.5rem 0}
+.prose th,.prose td{border:1px solid hsl(var(--border));padding:0.4rem 0.6rem;text-align:left}
+.prose img{max-width:100%}
+@media(max-width:768px){.editor-split{grid-template-columns:1fr;}}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+const input=document.getElementById('md-input');
+const preview=document.getElementById('md-preview');
+function update(){preview.innerHTML=marked.parse(input.value||'')||'<span class="text-muted">Preview will appear here...</span>'}
+input.addEventListener('input',update);
+update();
+</script>
 {% endblock content %}

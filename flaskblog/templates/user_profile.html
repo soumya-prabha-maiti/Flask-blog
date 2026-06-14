@@ -8,6 +8,7 @@
 
 {% for post in posts.items %}
 <article class="card">
+    <a href="{{ url_for('posts.post', post_id=post.id) }}" class="card-title">{{ post.title }}</a>
     <div class="card-header">
         {{ avatar(post.author, "avatar-sm") }}
         <div class="card-meta">
@@ -16,8 +17,8 @@
             <span>{{ post.date_posted.strftime('%b %d, %Y') }}</span>
         </div>
     </div>
-    <a href="{{ url_for('posts.post', post_id=post.id) }}" class="card-title">{{ post.title }}</a>
-    <p class="card-content mt-2">{{ post.content[:200] }}{% if post.content|length > 200 %}…{% endif %}</p>
+    <div class="separator"></div>
+    <div class="prose card-content mt-2">{{ post.content[:200]|markdown }}{% if post.content|length > 200 %}…{% endif %}</div>
 </article>
 {% endfor %}
 

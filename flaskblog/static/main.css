@@ -205,7 +205,7 @@ small, .text-muted {
 }
 
 .card-title {
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 600;
   color: hsl(var(--foreground));
   transition: color 0.15s;
@@ -467,6 +467,9 @@ textarea.form-input {
   background-color: hsl(var(--border));
   margin: 1.5rem 0;
 }
+.card .separator {
+  margin: 0.75rem 0;
+}
 
 /* === Pagination === */
 .pagination {
@@ -615,3 +618,20 @@ textarea.form-input {
 .justify-between { justify-content: space-between; }
 .text-center { text-align: center; }
 .w-full { width: 100%; }
+
+/* === Prose (Markdown) === */
+.prose h1, .prose h2, .prose h3 { margin: 1rem 0 0.5rem; font-weight: 600; }
+.prose h1 { font-size: 1.5rem; }
+.prose h2 { font-size: 1.25rem; }
+.prose h3 { font-size: 1.1rem; }
+.prose p { margin: 0.5rem 0; }
+.prose ul, .prose ol { padding-left: 1.5rem; margin: 0.5rem 0; }
+.prose li { margin: 0.25rem 0; }
+.prose code { background: hsl(var(--muted)); padding: 0.15rem 0.3rem; border-radius: 3px; font-size: 0.85em; }
+.prose pre { background: hsl(var(--muted)); padding: 0.75rem; border-radius: var(--radius); overflow-x: auto; margin: 0.5rem 0; }
+.prose pre code { background: none; padding: 0; }
+.prose blockquote { border-left: 3px solid hsl(var(--border)); padding-left: 1rem; margin: 0.5rem 0; color: hsl(var(--muted-foreground)); }
+.prose table { border-collapse: collapse; width: 100%; margin: 0.5rem 0; }
+.prose th, .prose td { border: 1px solid hsl(var(--border)); padding: 0.4rem 0.6rem; text-align: left; }
+.prose img { max-width: 100%; }
+.prose a { color: hsl(var(--primary)); text-decoration: underline; }

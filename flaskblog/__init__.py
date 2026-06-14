@@ -3,6 +3,9 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
 from flask_sqlalchemy import SQLAlchemy
+from markupsafe import Markup
+import markdown as md
+
 from flaskblog.config import Config
 
 
@@ -32,5 +35,9 @@ def create_app(config_class=Config):
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
+
+    @app.template_filter('markdown')
+    def markdown_filter(text):
+        return Markup(md.markdown(text, extensions=['fenced_code', 'tables']))
 
     return app
