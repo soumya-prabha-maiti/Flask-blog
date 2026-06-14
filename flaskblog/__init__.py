@@ -1,4 +1,6 @@
-from flask import Flask
+import os
+
+from flask import Flask, send_from_directory
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
@@ -21,6 +23,9 @@ mail = Mail()
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    # Ensure DATA_DIR and profile_pictures dir exist
+    os.makedirs(app.config["PROFILE_PICTURES_DIR"], exist_ok=True)
     
     db.init_app(app)
     bcrypt.init_app(app)
@@ -39,5 +44,9 @@ def create_app(config_class=Config):
     @app.template_filter('markdown')
     def markdown_filter(text):
         return Markup(md.markdown(text, extensions=['fenced_code', 'tables']))
+
+    @app.route('/profile_pictures/<filename>')
+    def profile_pic(filename):
+        return send_from_directory(app.config["PROFILE_PICTURES_DIR"], filename)
 
     return app

@@ -70,11 +70,8 @@ def account():
         # Display the current details already filled up in the form
         form.username.data = current_user.username
         form.email.data = current_user.email
-    profile_pic = url_for(
-        "static", filename=f"profile_pictures/{current_user.profile_pic}"
-    )
     return render_template(
-        "account.html", newTitle="Account", profile_pic=profile_pic, form=form
+        "account.html", newTitle="Account", form=form
     )
 
 
