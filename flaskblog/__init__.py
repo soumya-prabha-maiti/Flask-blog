@@ -36,14 +36,20 @@ def create_app(config_class=Config):
     from flaskblog.posts.routes import posts
     from flaskblog.users.routes import users
     from flaskblog.errors.handlers import errors
+    from flaskblog.admin.routes import admin
     app.register_blueprint(users)
     app.register_blueprint(posts)
     app.register_blueprint(main)
     app.register_blueprint(errors)
+    app.register_blueprint(admin)
 
     @app.template_filter('markdown')
     def markdown_filter(text):
         return Markup(md.markdown(text, extensions=['fenced_code', 'tables']))
+
+    @app.context_processor
+    def inject_config():
+        return dict(config=app.config)
 
     @app.route('/profile_pictures/<filename>')
     def profile_pic(filename):

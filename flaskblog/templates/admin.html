@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-header">
+    <h1>Admin Dashboard</h1>
+    <p class="text-muted">Site analytics overview</p>
+</div>
+
+<div class="stats-grid">
+    <div class="card">
+        <p class="text-muted">Total Users</p>
+        <h2>{{ total_users }}</h2>
+    </div>
+    <div class="card">
+        <p class="text-muted">Total Posts</p>
+        <h2>{{ total_posts }}</h2>
+    </div>
+    <div class="card">
+        <p class="text-muted">Posts This Week</p>
+        <h2>{{ posts_this_week }}</h2>
+    </div>
+</div>
+
+<div class="card">
+    <h3>Top Authors</h3>
+    <div class="separator"></div>
+    {% for username, count in top_authors %}
+    <div class="flex items-center justify-between mb-2">
+        <span>{{ username }}</span>
+        <span class="badge">{{ count }} post{{ 's' if count != 1 }}</span>
+    </div>
+    {% else %}
+    <p class="text-muted">No posts yet.</p>
+    {% endfor %}
+</div>
+
+<div class="card">
+    <h3>Recent Users</h3>
+    <div class="separator"></div>
+    {% for user in recent_users %}
+    <div class="flex items-center justify-between mb-2">
+        <span>{{ user.username }}</span>
+        <span class="text-muted">{{ user.email }}</span>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="card">
+    <h3>Recent Posts</h3>
+    <div class="separator"></div>
+    {% for post in recent_posts %}
+    <div class="flex items-center justify-between mb-2">
+        <a href="{{ url_for('posts.post', post_id=post.id) }}">{{ post.title }}</a>
+        <span class="text-muted">{{ post.date_posted.strftime('%b %d') }}</span>
+    </div>
+    {% endfor %}
+</div>
+{% endblock content %}

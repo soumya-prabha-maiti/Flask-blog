@@ -15,3 +15,4 @@ class Config:
     MAIL_USERNAME = os.getenv("EMAIL_USERNAME")
     MAIL_PASSWORD = os.getenv("EMAIL_PASSWORD")
     PROFILE_PICTURES_DIR = os.path.join(DATA_DIR, "profile_pictures")
+    ADMIN_EMAILS = [e.strip() for e in os.getenv("ADMIN_EMAILS", "").split(",") if e.strip()]
