@@ -76,7 +76,7 @@ uv pip install -e .
 python src/run.py
 ```
 
-Open http://localhost:5000
+Open http://localhost:7680
 
 ## License
 
