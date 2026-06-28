@@ -6,3 +6,7 @@ services:
       - "7680:7680"
     env_file:
       - ./.env
+    environment:
+      - DATA_DIR=/data
+    volumes:
+      - ./data:/data

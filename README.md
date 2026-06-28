@@ -9,68 +9,75 @@ license: mit
 app_port: 7680
 ---
 
-# Flask-blog
-<!-- TABLE OF CONTENTS -->
-<details open="open">
-  <summary>Table of Contents</summary>
-  <ol>
-    <li><a href="#about-the-project">About</a></li>
-    <li><a href="#technologies-used">Technologies Used</a>
-    <li><a href="#demo">Demo</a></li>
-    <li><a href="#installing-locally">Installing locally</a></li>
-    <li><a href="#license">License</a></li>
-  </ol>
-</details>
+# Flask Blog
 
+A blog application built with Flask featuring markdown posts, user profiles, and an admin dashboard.
 
+## Features
 
-<!-- ABOUT THE PROJECT -->
-## About
-This is a simple blog application built using Flask. It has the following features:
-* User registration and login
-* User profile
-* Create, update and delete posts
-* Reset password using email
-* Pagination
+- User registration, login, and profile with avatar upload
+- Create, update, and delete posts with Markdown support (fenced code blocks, tables)
+- Split-pane live preview editor
+- Admin analytics dashboard
+- Password reset via email
+- Pagination
+- shadcn-inspired UI
 
-## Technologies Used
-This project is built with the following libraries and frameworks
-* [Flask](https://flask.palletsprojects.com/en/2.3.x/)
-* [Bootstrap](https://getbootstrap.com)
-* [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/en/3.1.x/)
-* [SQLite](https://www.sqlite.org/index.html)
+## Tech Stack
+
+- [Flask](https://flask.palletsprojects.com/) with Jinja2 templates
+- [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/) + SQLite
+- Custom CSS (shadcn-inspired)
+- [Markdown](https://python-markdown.github.io/) with marked.js for live preview
+- Gunicorn (production)
 
 ## Demo
-The deployed version of this project can be accessed [here](https://soumyaprabhamaiti-flask-blog.hf.space/home). Sample screenshots are shown below:
+
+Deployed on Hugging Face Spaces: [Live Demo](https://soumyaprabhamaiti-flask-blog.hf.space/home)
+
 ![Home Page](readme_images/home.jpeg)
 
-## Installing locally
-- Install docker and docker-compose
-- Clone this repository
-    ```
-    git clone https://github.com/soumya-prabha-maiti/Flask-blog.git
-    ```
-- Go into the repository 
-    ```
-    cd Flask-blog
-    ```
-- Create a file named `.env` and type in the following key-value pairs. Keep the name of the keys exactly as shown below and enter your own values.
-    ```
-    SECRET_KEY=yoursecretkey
-    SQLALCHEMY_DATABASE_URI=sqlite_database_uri
-    EMAIL_USERNAME=your_email
-    EMAIL_PASSWORD=your_email_password
-    ```
-    After filling in the details, save the file.
-    
-- Run the following command to start the server
-    ```
-    docker-compose up
-    ```
+## Running Locally
 
-- Open your browser and go to `http://localhost:7680/` to view the app.
+Clone the repository and create a `.env` file:
+```bash
+git clone https://github.com/soumya-prabha-maiti/Flask-blog.git
+```
 
-<!-- LICENSE -->
+Go into the cloned repository
+```bash
+cd Flask-blog
+```
+
+Create the following `.env` file:
+```
+SECRET_KEY=your-secret-key
+DATA_DIR=./data
+EMAIL_USERNAME=your_email
+EMAIL_PASSWORD=your_email_password
+ADMIN_EMAILS=your_email@example.com
+```
+
+Then choose one of the following methods to run:
+
+### Option A: Via Docker (recommended)
+
+```bash
+docker-compose up --build
+```
+
+Open http://localhost:7680
+
+### Option B: Via uv
+
+```bash
+uv venv
+uv pip install -e .
+python src/run.py
+```
+
+Open http://localhost:5000
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
