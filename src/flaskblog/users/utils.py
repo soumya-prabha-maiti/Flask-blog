@@ -1,6 +1,6 @@
 import os
 import secrets
-from flask import url_for,current_app
+from flask import url_for, current_app
 from flask_mail import Message
 from flaskblog import mail
 from PIL import Image
@@ -30,4 +30,8 @@ def send_reset_email(user):
 
 If you did not make this request, you can safely ignore this email and no changes will be made to your accout.
     '''
-    mail.send(msg)
+    try:
+        mail.send(msg)
+        return True
+    except Exception as e:
+        return False
