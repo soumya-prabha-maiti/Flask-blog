@@ -138,3 +138,6 @@ dmypy.json
 .bashrc   
 
 data/
+
+# Application logs
+logs/

@@ -32,6 +32,8 @@ If you did not make this request, you can safely ignore this email and no change
     '''
     try:
         mail.send(msg)
+        current_app.logger.info("Password reset email sent to %s", user.email)
         return True
     except Exception as e:
+        current_app.logger.error("Failed to send reset email to %s: %s", user.email, e, exc_info=True)
         return False

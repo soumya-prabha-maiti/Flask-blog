@@ -53,6 +53,7 @@ Create the following `.env` file:
 ```
 SECRET_KEY=your-secret-key
 DATA_DIR=./data
+LOGS_DIR=./logs
 EMAIL_USERNAME=your_email
 EMAIL_PASSWORD=your_email_password
 ADMIN_EMAILS=your_email@example.com

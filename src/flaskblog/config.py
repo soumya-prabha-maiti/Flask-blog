@@ -7,6 +7,8 @@ DATA_DIR = os.path.abspath(os.environ["DATA_DIR"])
 
 
 class Config:
+    DATA_DIR = DATA_DIR
+    LOGS_DIR = os.path.abspath(os.getenv("LOGS_DIR", "./logs"))
     SECRET_KEY = os.getenv("SECRET_KEY")
     SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(DATA_DIR, 'site.db')}"
     MAIL_SERVER = "smtp.gmail.com"

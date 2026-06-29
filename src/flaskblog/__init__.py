@@ -1,4 +1,6 @@
+import logging
 import os
+from datetime import datetime
 
 from flask import Flask, send_from_directory
 from flask_bcrypt import Bcrypt
@@ -26,6 +28,19 @@ def create_app(config_class=Config):
 
     # Ensure DATA_DIR and profile_pictures dir exist
     os.makedirs(app.config["PROFILE_PICTURES_DIR"], exist_ok=True)
+
+    # File logging - log file named by server start timestamp
+    log_dir = Config.LOGS_DIR
+    os.makedirs(log_dir, exist_ok=True)
+    log_filename = datetime.now().strftime("%Y-%m-%d_%H-%M-%S") + ".log"
+    file_handler = logging.FileHandler(os.path.join(log_dir, log_filename))
+    file_handler.setLevel(logging.INFO)
+    file_handler.setFormatter(logging.Formatter(
+        "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+    ))
+    app.logger.addHandler(file_handler)
+    app.logger.setLevel(logging.INFO)
+    app.logger.info("Server started")
     
     db.init_app(app)
     bcrypt.init_app(app)

@@ -8,5 +8,7 @@ services:
       - ./.env
     environment:
       - DATA_DIR=/data
+      - LOGS_DIR=/logs
     volumes:
       - ./data:/data
+      - ./logs:/logs

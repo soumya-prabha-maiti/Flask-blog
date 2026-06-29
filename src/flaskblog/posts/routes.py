@@ -1,6 +1,6 @@
 
-from flask import (Blueprint, abort, flash, redirect, render_template, request,
-                   url_for)
+from flask import (Blueprint, abort, current_app, flash, redirect,
+                   render_template, request, url_for)
 from flask_login import current_user, login_required
 
 from flaskblog import db
@@ -19,6 +19,7 @@ def create_post():
                         content=form.content.data, author=current_user)
         db.session.add(new_post)
         db.session.commit()
+        current_app.logger.info("Post created: id=%d title='%s' by user=%s", new_post.id, new_post.title, current_user.username)
         flash('Your post has been created!', 'success')
         return redirect(url_for('main.home'))
     return render_template('create_update_post.html', newTitle='Create Post', form=form, legend='Create a new post')
@@ -27,6 +28,7 @@ def create_post():
 @posts.route('/post/<int:post_id>')
 def post(post_id):
     post = Post.query.get_or_404(post_id)
+    current_app.logger.info("Post fetched: id=%d title='%s'", post.id, post.title)
     return render_template('post.html', newTitle=post.title, post=post)
 
 
