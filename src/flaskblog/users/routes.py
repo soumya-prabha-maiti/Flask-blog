@@ -1,4 +1,4 @@
-from flask import Blueprint, flash, redirect, render_template, request, url_for
+from flask import Blueprint, abort, current_app, flash, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from flaskblog import bcrypt, db
 from flaskblog.models import Post, User
@@ -91,6 +91,8 @@ def user_profile(username):
 
 @users.route("/request_password_reset", methods=["GET", "POST"])
 def request_reset():
+    if not current_app.config.get("ENABLE_PASSWORD_RESET", True):
+        abort(404)
     if current_user.is_authenticated:
         # TODO : logout user instead of redirect to home
         return redirect(url_for("main.home"))
